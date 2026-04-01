@@ -1,31 +1,38 @@
 import { NextResponse } from 'next/server';
-// สมมติว่าใช้ Supabase เป็น Database
-import { createClient } from '@supabase/supabase-js';
+import { db } from '@/lib/firebase'; // ดึงค่า db ที่เราตั้งค่าไว้มาใช้
+import { collection, getDocs, addDoc } from 'firebase/firestore';
 
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
-
+// GET: ดึงข้อมูลห้องซ้อมทั้งหมดจาก Firebase
 export async function GET() {
-  const { data } = await supabase.from('studios').select('*');
-  return NextResponse.json(data);
+  try {
+    const querySnapshot = await getDocs(collection(db, 'studios'));
+    const studios = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.id,
+      ...doc.data()
+    }));
+    return NextResponse.json(studios);
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 }
 
+// POST: บันทึกข้อมูลห้องซ้อมใหม่ลง Firebase
 export async function POST(request) {
-  const body = await request.json();
-  
-  // บันทึกข้อมูลใหม่ลงตาราง studios ตาม schema ที่คุณวางไว้
-  const { data, error } = await supabase
-    .from('studios')
-    .insert([
-      { 
-        name: body.name, 
-        lat: body.lat, 
-        lng: body.lng, 
-        open_time: body.open_time, 
-        close_time: body.close_time,
-        image_url: body.image_url 
-      }
-    ]);
+  try {
+    const body = await request.json();
+    const docRef = await addDoc(collection(db, 'studios'), {
+      name: body.name,
+      lat: body.lat,
+      lng: body.lng,
+      open_time: body.open_time,
+      close_time: body.close_time,
+      image_url: body.image_url,
+      createdAt: new Date().toISOString()
+    });
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
-  return NextResponse.json(data);
+    return NextResponse.json({ id: docRef.id, message: "บันทึกสำเร็จ!" });
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 400 });
+  }
 }
