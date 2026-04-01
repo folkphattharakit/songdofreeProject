@@ -1,0 +1,50 @@
+export const translations = {
+  th: {
+    home: "หน้าหลัก",
+    admin: "เฉพาะผู้ดูแลระบบ",
+    logout: "ออกจากระบบ",
+    heroTitle: "SONGDOFREE",
+    heroDesc: "รวบรวมห้องซ้อมและร้านจำหน่ายอุปกรณ์ดนตรีคุณภาพในนครปฐม!!",
+    studioList: "รายชื่อห้องซ้อม",
+    found: "พบทั้งหมด {count} แห่งในระบบ",
+    viewAll: "ดูทั้งหมด",
+    location: "พิกัดห้องซ้อม",
+    clickPin: "คลิกที่หมุดเพื่อดูรายละเอียด",
+    details: "รายละเอียดเพิ่มเติม",
+    open: "เปิด:",
+    priceUnit: "/ชม.",
+    statusClosed: "ปิดอยู่"
+  },
+  en: {
+    home: "Home",
+    admin: "Admin Only",
+    logout: "Logout",
+    heroTitle: "SONGDOFREE",
+    heroDesc: "The best collection of music studios and equipment shops in Nakhon Pathom!!",
+    studioList: "Studio List",
+    found: "Found {count} studios",
+    viewAll: "View All",
+    location: "Studio Locations",
+    clickPin: "Click on pins for more details",
+    details: "More Details",
+    open: "Open:",
+    priceUnit: "/hr.",
+    statusClosed: "CLOSED"
+  },
+  cn: {
+    home: "首页",
+    admin: "仅限管理员",
+    logout: "退出登录",
+    heroTitle: "SONGDOFREE",
+    heroDesc: "佛统府优质练琴房与乐器店精选！！",
+    studioList: "录音棚列表",
+    found: "系统中共找到 {count} 个地点",
+    viewAll: "查看全部",
+    location: "录音棚分布",
+    clickPin: "点击图钉查看详情",
+    details: "查看详情",
+    open: "营业时间:",
+    priceUnit: "泰铢/小时",
+    statusClosed: "已打烊"
+  }
+};
